@@ -1,5 +1,6 @@
 package com.myapplicationdev.android.taskmanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +15,7 @@ public class AddTaskActivity extends AppCompatActivity {
     Button btnAdd, btnCancel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
@@ -32,10 +33,15 @@ public class AddTaskActivity extends AppCompatActivity {
                 if(etName.getText().toString().length() > 0 && etDescription.getText().toString().length() > 0 && etSeconds.getText().toString().length() > 0){
                     String name = etName.getText().toString();
                     String description = etDescription.getText().toString();
+                    int id = db.getAllTasks().size();
+                    Task task = new Task(id, name, description);
                     int seconds = Integer.parseInt(etSeconds.getText().toString());
+                    Intent i = new Intent();
+                    i.putExtra("seconds", seconds);
+                    i.putExtra("task", task);
                     db.insertTask(name, description);
                     db.close();
-                    setResult(RESULT_OK);
+                    setResult(RESULT_OK, i);
                     Toast.makeText(AddTaskActivity.this, "Inserted successfully", Toast.LENGTH_LONG).show();
                     finish();
                 }

@@ -46,9 +46,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<Task> getAllTasks() {
+    public ArrayList<String> getAllTasks() {
 
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<String> tasks = new ArrayList<String>();
 
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns= {COLUMN_ID, COLUMN_TASK_NAME, COLUMN_TASK_DESCRP};
@@ -68,7 +68,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 Task task = new Task(id, name, description);
 
-                tasks.add(task);
+                tasks.add(task.toString());
 
             } while (cursor.moveToNext());
         }
