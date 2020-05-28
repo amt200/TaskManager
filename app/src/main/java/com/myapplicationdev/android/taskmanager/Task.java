@@ -1,5 +1,7 @@
 package com.myapplicationdev.android.taskmanager;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Task implements Serializable {
@@ -36,5 +38,11 @@ public class Task implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.id+" "+this.name+"\n"+this.description;
     }
 }
